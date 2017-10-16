@@ -39,6 +39,12 @@ public class Solution {
 			K = Integer.parseInt(st.nextToken());
 			map = new int[N][N];
 			micro = new ArrayList<>();
+			for (int n1 = 0; n1 < N; n1++) {
+				map[0][n1] = -1;
+				map[n1][0] = -1;
+				map[N - 1][n1] = -1;
+				map[n1][N - 1] = -1;
+			}
 			for (int k = 0; k < K; k++) {
 				st = new StringTokenizer(br.readLine());
 				int x = Integer.parseInt(st.nextToken());
