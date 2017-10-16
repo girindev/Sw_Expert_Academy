@@ -1,5 +1,4 @@
 package p2382;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,14 +28,6 @@ public class Solution {
 		}
 	}
 
-	static void init() {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				map[i][j] = 0;
-			}
-		}
-	}
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -58,13 +49,13 @@ public class Solution {
 				st = new StringTokenizer(br.readLine());
 				int x = Integer.parseInt(st.nextToken());
 				int y = Integer.parseInt(st.nextToken());
-				int cnt = Integer.parseInt(st.nextToken());
-				int dir = Integer.parseInt(st.nextToken());
+				int cnt = Integer.parseInt(st.nextToken()); //미생물 수
+				int dir = Integer.parseInt(st.nextToken()); //방향
 				micro.add(new Micro(x, y, cnt, dir));
 			}
 			for (int m = 0; m < M; m++) {
 				// 이동
-				init(); // map 초기화
+				map = new int[N][N];
 				for (int i = 0; i < micro.size(); i++) {
 					Micro mc = micro.get(i);
 					mc.x += dx[mc.des - 1];
@@ -86,17 +77,11 @@ public class Solution {
 							int sum = 0;
 							int temp1 = 0;
 
+							Stack<Micro> s = new Stack<>();
 							for (Micro micro : micro) {
 								if (micro.x == i && micro.y == j) {
 									sum += micro.cnt;
-								}
-							}
-
-							Stack<Micro> s = new Stack<>();
-
-							for (Micro mc : micro) {
-								if (mc.x == i && mc.y == j) {
-									s.add(mc);
+									s.add(micro);
 								}
 							}
 
