@@ -4,15 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Solution {
 	static int N, M, K;
 	static int map[][];
 	static ArrayList<Micro> micro;
-	static Queue<Micro> q;
 	static int dx[] = { -1, 1, 0, 0 };
 	static int dy[] = { 0, 0, -1, 1 };
 
@@ -30,12 +27,6 @@ public class Solution {
 		}
 	}
 
-	static int bfs() {
-		int result = 0;
-		// Quque<>
-		return result;
-	}
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -47,8 +38,6 @@ public class Solution {
 			K =  Integer.parseInt(st.nextToken());
 			map = new int[N][N];
 			micro = new ArrayList<>();
-			q = new LinkedList<>();
-			// int result = 0;
 			for (int n1 = 0; n1 < N; n1++) {
 				map[0][n1] = -1;
 				map[n1][0] = -1;
