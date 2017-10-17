@@ -66,7 +66,20 @@ public class Main {
 				for (int j = 0; j < N; j++) {
 					if (copyArray[i][j] == 0) {
 						for (int k = i; k < N - 1; k++) {
-							copyArray[k][j] = copyArray[k + 1][j];
+							if (copyArray[k + 1][j] != 0)
+								copyArray[k][j] = copyArray[k + 1][j];
+							else {
+								int k_cnt = 1;
+								while(copyArray[k+k_cnt][j] == 0) {
+									if (k+k_cnt > N-2) {
+										break;
+									} else {
+										k_cnt++;
+									}
+								}
+								copyArray[k][j] = copyArray[k+k_cnt][j];
+								copyArray[k+k_cnt][j] = 0;
+							}
 						}
 						copyArray[N-1][j] = 0;
 					}
@@ -98,7 +111,20 @@ public class Main {
 				for (int j = 0; j < N; j++) {
 					if (copyArray[i][j] == 0) {
 						for (int k = i; k > 0; k--) {
-							copyArray[k][j] = copyArray[k - 1][j];
+							if (copyArray[k - 1][j] != 0)
+								copyArray[k][j] = copyArray[k - 1][j];
+							else {
+								int k_cnt = 1;
+								while(copyArray[k-k_cnt][j] == 0) {
+									if (k-k_cnt == 0) {
+										break;
+									} else {
+										k_cnt++;
+									}
+								}
+								copyArray[k][j] = copyArray[k-k_cnt][j];
+								copyArray[k-k_cnt][j] =0;
+							}
 						}
 						copyArray[0][j] = 0;
 					}
@@ -129,7 +155,20 @@ public class Main {
 				for (int j = 0; j < N; j++) {
 					if (copyArray[j][i] == 0) {
 						for (int k = i; k < N - 1; k++) {
-							copyArray[j][k] = copyArray[j][k + 1];
+							if (copyArray[j][k + 1] != 0)
+								copyArray[j][k] = copyArray[j][k + 1];
+							else {
+								int k_cnt = 1;
+								while(copyArray[j][k+k_cnt] == 0) {
+									if (k+k_cnt > N-2) {
+										break;
+									} else {
+										k_cnt++;
+									}
+								}
+								copyArray[j][k] = copyArray[j][k+k_cnt];
+								copyArray[j][k+k_cnt] = 0;
+							}
 						}
 						copyArray[j][N - 1] = 0;
 					}
@@ -140,7 +179,7 @@ public class Main {
 					if (copyArray[j][i] == copyArray[j][i + 1]) {
 						copyArray[j][i] *= 2;
 						for (int k = i + 1; k < N - 1; k++) {
-							copyArray[j][k] = copyArray[j][k + 1];
+								copyArray[j][k] = copyArray[j][k + 1];
 						}
 						copyArray[j][N - 1] = 0;
 					}
@@ -160,7 +199,20 @@ public class Main {
 				for (int j = N - 1; j > 0; j--) {
 					if (copyArray[i][j] == 0) {
 						for (int k = j; k > 0; k--) {
-							copyArray[i][k] = copyArray[i][k - 1];
+							if (copyArray[i][k-1] != 0)
+								copyArray[i][k] = copyArray[i][k - 1];
+							else {
+								int k_cnt = 1;
+								while(copyArray[i][k-k_cnt] == 0) {
+									if (k-k_cnt == 0) {
+										break;
+									} else {
+										k_cnt++;
+									}
+								}
+								copyArray[i][k] = copyArray[i][k-k_cnt];
+								copyArray[i][k-k_cnt] = 0;
+							}
 						}
 						copyArray[i][0] = 0;
 					}
