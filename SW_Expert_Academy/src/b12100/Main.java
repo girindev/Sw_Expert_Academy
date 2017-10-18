@@ -60,9 +60,9 @@ public class Main {
 			for (int i = 0; i < N; i++) {
 				System.arraycopy(temp[i], 0, copyArray[i], 0, temp[i].length);
 			}
-			//0인부분 땅겨주기
 			for (int i = 0; i < N - 1; i++) {
 				for (int j = 0; j < N; j++) {
+					//0인부분 땅겨주기
 					if (copyArray[i][j] == 0) {
 						for (int k = i; k < N - 1; k++) {
 							if (copyArray[k + 1][j] != 0)
@@ -82,11 +82,6 @@ public class Main {
 						}
 						copyArray[N-1][j] = 0;
 					}
-				}
-			}
-			
-			for (int i = 0; i < N - 1; i++) {
-				for (int j = 0; j < N; j++) {
 					if (copyArray[i][j] == copyArray[i + 1][j]) {
 						copyArray[i][j] *= 2;
 						for (int k = i + 1; k < N - 1; k++) {
@@ -127,10 +122,6 @@ public class Main {
 						}
 						copyArray[0][j] = 0;
 					}
-				}
-			}
-			for (int i = N - 1; i > 0; i--) {
-				for (int j = 0; j < N; j++) {
 					if (copyArray[i][j] == copyArray[i - 1][j]) {
 						copyArray[i][j] *= 2;
 						for (int k = i - 1; k > 0; k--) {
@@ -171,10 +162,6 @@ public class Main {
 						}
 						copyArray[j][N - 1] = 0;
 					}
-				}
-			}
-			for (int i = 0; i < N - 1; i++) {
-				for (int j = 0; j < N; j++) {
 					if (copyArray[j][i] == copyArray[j][i + 1]) {
 						copyArray[j][i] *= 2;
 						for (int k = i + 1; k < N - 1; k++) {
@@ -194,6 +181,7 @@ public class Main {
 			for (int i = 0; i < N; i++) {
 				System.arraycopy(temp[i], 0, copyArray[i], 0, temp[i].length);
 			}
+
 			for (int i = 0; i < N; i++) {
 				for (int j = N - 1; j > 0; j--) {
 					if (copyArray[i][j] == 0) {
@@ -215,11 +203,6 @@ public class Main {
 						}
 						copyArray[i][0] = 0;
 					}
-				}
-			}
-
-			for (int i = 0; i < N; i++) {
-				for (int j = N - 1; j > 0; j--) {
 					if (copyArray[i][j] == copyArray[i][j - 1]) {
 						copyArray[i][j] *= 2;
 						for (int k = j - 1; k > 0; k--) {
