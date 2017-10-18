@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-
+//시험감독 완료
 public class Main {
 	static int N; // 시험장
 	static int A[]; // 응시생

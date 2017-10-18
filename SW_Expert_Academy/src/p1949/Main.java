@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
+//µî»ê·Î
 public class Main {
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { 1, -1, 0, 0 };
