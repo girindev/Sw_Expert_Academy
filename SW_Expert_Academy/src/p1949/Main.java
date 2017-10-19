@@ -1,11 +1,7 @@
 package p1949;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 //µî»ê·Î
 public class Main {
@@ -25,17 +21,14 @@ public class Main {
 	}
 
 	static int dfs(int m, int n, int map[][], int N, int cnt) {
-		boolean chk[][] = new boolean[N][N];
 		Pair pair = new Pair(m, n, map[m][n]);
-		chk[m][n] = true;
 		int temp = 0;
 		int result = cnt;
 		for (int i = 0; i < 4; i++) {
 			int nx = pair.x + dx[i];
 			int ny = pair.y + dy[i];
 			if (0 <= nx && nx < N && 0 <= ny && ny < N) {
-				if (map[nx][ny] < pair.v && chk[nx][ny] == false) {
-					chk[nx][ny] = true;
+				if (map[nx][ny] < pair.v) {
 					temp = dfs(nx, ny, map, N, cnt + 1);
 					if (result < temp) {
 						result = temp;
@@ -56,27 +49,13 @@ public class Main {
 			int N = Integer.parseInt(st.nextToken());
 			int K = Integer.parseInt(st.nextToken());
 			int map[][] = new int[N][N];
-			int maxValue = 0;
-
 			for (int m = 0; m < N; m++) {
 				st = new StringTokenizer(br.readLine());
 				for (int n = 0; n < N; n++) {
 					map[m][n] = Integer.parseInt(st.nextToken());
-					if (maxValue < map[m][n]) {
-						maxValue = map[m][n];
-					}
 				}
 			}
-
-			int maxValueCount = 0;
-			for (int s = 0; s < N; s++) {
-				for (int d = 0; d < N; d++) {
-					if (map[s][d] == maxValue) {
-						maxValueCount++;
-					}
-				}
-			}
-
+		
 			for (int m = 0; m < N; m++) {
 				for (int n = 0; n < N; n++) {
 					int temp[][] = new int[N][N];
@@ -85,24 +64,32 @@ public class Main {
 							temp[k][j] = map[k][j];
 						}
 					}
-					boolean flag = false;
-					if (temp[m][n] == maxValue && maxValueCount == 1) {
-						maxValue--;
-						flag = true;
-					}
-					temp[m][n] -= K;
-					for (int l = 0; l < N; l++) {
-						for (int j = 0; j < N; j++) {
-							if (temp[l][n] == maxValue) {
-								int returnV = dfs(l, n, temp, N, 1);
-								if (result[i] < returnV) {
-									result[i] = returnV;
+					int smallK = K;
+					while (true) {
+						int maxValue = 0;
+						int tempMN = temp[m][n];
+						if (smallK == -1)
+							break;
+						temp[m][n] -= smallK;
+						for (int s = 0; s < N; s++) {
+							for (int d = 0; d < N; d++) {
+								if (maxValue < temp[s][d]) {
+									maxValue = temp[s][d];
 								}
 							}
 						}
-					}
-					if (flag == true) {
-						maxValue++;
+						for (int l = 0; l < N; l++) {
+							for (int j = 0; j < N; j++) {
+								if (temp[l][j] == maxValue) {
+									int returnV = dfs(l, j, temp, N, 1);
+									if (result[i] < returnV) {
+										result[i] = returnV;
+									}
+								}
+							}
+						}
+						temp[m][n] = tempMN;
+						smallK--;
 					}
 				}
 			}
