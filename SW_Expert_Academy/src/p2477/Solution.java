@@ -74,8 +74,6 @@ public class Solution {
 				remainP.add(new Person(Integer.parseInt(st.nextToken()), -1, -1, rp));
 			}
 			int tt = 0; // time
-//			ArrayList<Person> nowTaskA = new ArrayList<>();
-//			ArrayList<Person> nowTaskB = new ArrayList<>();
 			Map<Integer, Person> nowTaskA = new HashMap<>();
 			Map<Integer, Person> nowTaskB = new HashMap<>();
 			ArrayList<Person> waitingA = new ArrayList<>();
