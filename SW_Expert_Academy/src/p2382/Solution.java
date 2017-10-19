@@ -75,7 +75,6 @@ public class Solution {
 					for (int j = 0; j < N; j++) {
 						if (map[i][j] == 1) {
 							int sum = 0;
-							int temp1 = 0;
 
 							Stack<Micro> s = new Stack<>();
 							for (Micro micro : micro) {
@@ -85,6 +84,7 @@ public class Solution {
 								}
 							}
 
+							int temp1 = 0;
 							if (s.size() > 1) {
 								Micro tempMc = null;
 								int stackSize = s.size();
