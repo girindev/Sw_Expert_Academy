@@ -1,90 +1,92 @@
 package p2105;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 /**
  * @since 2017-10-19
  * @author 박성훈 디저트 카페
  */
 public class Main {
-	static int T; // 테스트 케이스
-	static int N[];
-	static int[] dx = { 1, 0, -1 };
-	static int[] dy = { 1, 2, 1 };
-	static Set<Integer> chk;
-	static ArrayList<ArrayList<Integer>> dList;
+	static int N;
+	static int Map[][];
+	// -1, 1 --> 못가면 끝임 못가는거임
+	static int dx[] = { 1, 1, -1, -1 };
+	static int dy[] = { 1, -1, -1, 1 };
+	static int firstX, firstY;
 
-	static class Pair {
-		int x;
-		int y;
-		int v;
+	static int searchCafe(int cnt, int x, int y, int direction, int chkArray[], boolean first) {
+		int result = 0;
+		chkArray[Map[x][y]] = Map[x][y];
+		int nx = x + dx[direction];
+		int ny = y + dy[direction];
 
-		public Pair(int x, int y, int v) {
-			this.x = x;
-			this.y = y;
-			this.v = v;
+		boolean flag1 = true;
+		boolean flag2 = true;
+		while (true) {
+			if (flag1) {
+				// 왔던 방향으로 갈 수 있는 경우
+				if (0 <= nx && nx < N && 0 <= ny && ny < N) {
+					if (nx == firstX && ny == firstY) {
+						result = cnt;
+					} else if (chkArray[Map[nx][ny]] == 0) {
+						int copyArray[] = new int[101];
+						for (int i = 0; i < 101; i++)
+							copyArray[i] = chkArray[i];
+						result = Math.max(result,searchCafe(cnt + 1, nx, ny, direction, copyArray, false));
+					}
+				}
+				flag1 = false;
+				// 가지 못하는 경우
+			} else if (flag2) {
+				nx = x + dx[direction];
+				ny = y + dy[direction];
+				if (0 <= nx && nx < N && 0 <= ny && ny < N) {
+					if (nx == firstX && ny == firstY) {
+						result = cnt;
+					} else if (chkArray[Map[nx][ny]] == 0) {
+						int copyArray[] = new int[101];
+						for (int i = 0; i < 101; i++)
+							copyArray[i] = chkArray[i];
+						result = Math.max(result,searchCafe(cnt + 1, nx, ny, direction, copyArray, false));
+					}
+				}
+				flag2 = false;
+			}
+			if (first == true) {
+				break;
+			}
+			if (flag1 == false && flag2 == false)
+				break;
+			direction++; // 방향을 바꿔준다.
+			if (direction == 4)
+				return result;
 		}
+		return result;
 	}
 
-	static void bfs(int x, int y, int v, int range, int map[][]) { // range = N[i]
-		chk = new LinkedHashSet<>();
-		chk.add(v);
-		boolean flag = true;
-		dList.add(new ArrayList<>());
-		for (int i = 0; i < 3; i++) {
-			int nowX = x + dx[i];
-			int nowY = y + dy[i];
-			if ((0 <= nowX && nowX < range) && (0 <= nowY && nowY < range) && chk.add(map[nowY][nowX])) {
-			} else {
-				flag = false;
-			}
-		}
-		if (flag == true) {
-			for (int v1 : chk) {
-				dList.get(dList.size() - 1).add(v1);
-			}
-		}
-	}
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		T = Integer.parseInt(st.nextToken());
-		N = new int[T];
-		dList = new ArrayList<>();
-		for (int i = 0; i < T; i++) {
-			st = new StringTokenizer(br.readLine());
-			N[i] = Integer.parseInt(st.nextToken());
-			int map[][] = new int[N[i]][N[i]];
-			// 맵 초기화
-			for (int j = 0; j < N[i]; j++) {
-				st = new StringTokenizer(br.readLine());
-				int m = 0;
-				while (st.hasMoreTokens()) {
-					map[j][m++] = Integer.parseInt(st.nextToken());
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int T = in.nextInt();
+		for (int t = 0; t < T; t++) {
+			N = in.nextInt();
+			Map = new int[N][N];
+			for (int n = 0; n < N; n++) {
+				for (int n_ = 0; n_ < N; n_++) {
+					Map[n][n_] = in.nextInt();
 				}
 			}
-			// bfs
-			for (int u = 0; u < N[i]; u++) {
-				for (int v = 0; v < N[i]; v++) {
-					bfs(v, u, map[u][v], N[i], map);
+			int local_result = 1;
+			for (int n = 0; n < N - 2; n++) {
+				for (int n_ = 1; n_ < N - 1; n_++) {
+					firstX = n;
+					firstY = n_;
+					int chkArray[] = new int[101];
+					local_result = Math.max(searchCafe(1, n, n_, 0, chkArray, true), local_result);
 				}
 			}
-		}
-		for (int i = 0; i < dList.size(); i++) {
-			for (int j : dList.get(i)) {
-				System.out.print(j + " ");
-			}
-			System.out.println("");
+			if (local_result == 1)
+				local_result = -1;
+			System.out.println("#" + (t+1) +" " + local_result);
 		}
 	}
 }
