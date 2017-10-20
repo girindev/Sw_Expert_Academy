@@ -81,10 +81,7 @@ public class Main {
 						for (int l = 0; l < N; l++) {
 							for (int j = 0; j < N; j++) {
 								if (temp[l][j] == maxValue) {
-									int returnV = dfs(l, j, temp, N, 1);
-									if (result[i] < returnV) {
-										result[i] = returnV;
-									}
+									result[i] = Math.max(dfs(l, j, temp, N, 1), result[i]);
 								}
 							}
 						}
